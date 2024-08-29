@@ -34,20 +34,20 @@ const router = createBrowserRouter([
       {
         path:'/service',
         element:<Service/>,
-       // children : [
-          // { path: 'plumber',
-          //   element: <plumber/>
-          // },
-          // { path: 'electricity',
+       children : [
+          { path: 'booking',
+            element: <plumber/>
+          },
+          // { path: 'booking',
           //   element: <electricity/>
           // },
-          // { path: 'carpenter',
-          //   element: <carpanter/>
+          // { path: 'booking',
+          //   element: <maintainance/>
           // },
           // { path: 'house cleaner',
           //   element: <housecleaner/>
           // },
-        //]
+        ]
       },
       {
         path: '/sign',

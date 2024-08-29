@@ -1,7 +1,7 @@
 // src/components/Header.js
 //import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Navbar, Nav, Button, Image, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import log from '../assets/logo/log.png';
 import { Dropdown } from 'react-bootstrap';
@@ -10,8 +10,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
   const { user ,loginWithRedirect,isAuthenticated,logout } = useAuth0();
-    //const { user, isAuthenticated } = useAuth0();
-   // var  islogin= isAuthenticated();
+    
 
 
 

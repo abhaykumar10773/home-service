@@ -1,5 +1,6 @@
 // src/components/HeroSection.js
 //import React from "react";
+import { Link } from 'react-router-dom';
 import plumber from '../assets/images/plumber.png';
 //import {motion} from 'framer-motion';
 function HeroSection() {
@@ -9,7 +10,7 @@ function HeroSection() {
     <div className=" text-md-left mb-4 mb-md-0 w-75 p-3 pl-8">
       <h1  className=" text-4xl font-bold text-blue-700">Repair and Maintenance Services</h1>
       <p className="lead text-gray-600 mt-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam animi mollitia nemo labore debitis dignissimos reprehenderit, suscipit illum vitae sequi officiis corporis, voluptates similique tempore. Sapiente commodi, qui impedit, perspiciatis deleniti expedita cumque magni ratione, provident officia doloremque eos eum?</p>
-      <button className="btn mt-6 btn-primary text-white">Contact Us</button>
+      <button className="btn mt-6 btn-primary text-white"><Link to="/contact">Contact Us</Link></button>
     </div>
     <div className="text-center">
       <img src={plumber} alt="Service Worker" className="img-fluid" />

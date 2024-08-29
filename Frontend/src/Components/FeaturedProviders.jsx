@@ -2,6 +2,7 @@
 //import React from "react";
 import { motion } from 'framer-motion';
 import professional from '../assets/images/professional.png';
+import { Link } from 'react-router-dom';
 
 function FeaturedProviders() {
   return (
@@ -20,7 +21,7 @@ function FeaturedProviders() {
             whileTap={{ scale: 0.9 }}
             className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            READ MORE
+           <Link to="/about">READ MORE</Link>
           </motion.button>
     </div>
     

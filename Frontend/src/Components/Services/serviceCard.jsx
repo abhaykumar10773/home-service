@@ -1,6 +1,7 @@
 //import React from 'react';
 import { motion } from 'framer-motion';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 
 const ServiceCard = ({ title, description, icon }) => {
   return (
@@ -21,9 +22,9 @@ const ServiceCard = ({ title, description, icon }) => {
           </div>
           <h5 className="card-title">{title}</h5>
           <p className="card-text">{description}</p>
-          <a href="#book-service" className="btn btn-primary mt-3">
+          <Link to="/service" className="btn btn-primary mt-3">
             Book Now
-          </a>
+          </Link>
         </div>
       </div>
     </motion.div>
