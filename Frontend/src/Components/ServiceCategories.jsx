@@ -4,9 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ServiceCard from "./Services/serviceCard";
 import { Link } from 'react-router-dom';
 
+
 const ServiceCategories = () => {
   return (
-    <div className="container my-5">
+    <div className="container my-5" >
       <h2 className="text-center fs-1 fw-bold mb-4">OUR SERVICES</h2>
       <div className="row">
         <ServiceCard/>

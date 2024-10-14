@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 import Layout from './Layout/Layout.jsx';
-import { Auth0Provider } from '@auth0/auth0-react';
-import {BrowserRouter, RouterProvider,createBrowserRouter} from 'react-router-dom';
-//import Header from './Components/Header.jsx';
-//import Footers from './Components/footers.jsx';
+import { RouterProvider,createBrowserRouter} from 'react-router-dom';
+// import { ServiceProvider } from './Context/ServiceContext.jsx';
+// import { ServiceContext } from './Context/ServiceContext.jsx';
 import About from './Pages/About'
-import Service from './Pages/Service'
+import Service from './Pages/Service.jsx';
 import Contact from './Pages/Contact'
 import Home from './Pages/Home.jsx'
+import {SignUpOne}  from './Components/Login.jsx';
+import Sprovider from './Components/sprovider.jsx'
 
+import SServiceinfo from './Components/SServiceinfo.jsx';
 
 
 const router = createBrowserRouter([
@@ -20,8 +22,11 @@ const router = createBrowserRouter([
     path: "/",
     element:<Layout/>,
     children:[
-      {path: "/home",
-        element:<Home/>
+      {    path: "/home",
+           element:<Home/>,
+      },
+      { path: '/rprovider',
+        element: <Sprovider/>,
       },
       {
         path:'/about',
@@ -34,24 +39,34 @@ const router = createBrowserRouter([
       {
         path:'/service',
         element:<Service/>,
-       children : [
-          { path: 'booking',
-            element: <plumber/>
+        children:[
+          { path: 'Electrician',
+            element: <SServiceinfo/>,
           },
-          // { path: 'booking',
-          //   element: <electricity/>
-          // },
-          // { path: 'booking',
-          //   element: <maintainance/>
-          // },
-          // { path: 'house cleaner',
-          //   element: <housecleaner/>
-          // },
-        ]
+          { path: 'Cooking',
+            element: <SServiceinfo/>
+          },
+          { path: 'Plumbing',
+            element: <SServiceinfo/>
+          },
+          { path: 'cleaning',
+            element: <SServiceinfo/>
+          },
+          { path: 'carpanter',
+            element: <SServiceinfo/>
+          },
+          { path: 'assembly',
+            element: <SServiceinfo/>
+          },
+          { path: 'assembly',
+            element: <SServiceinfo/>
+          },
+         ],
       },
+     
       {
-        path: '/sign',
-        element: <Auth0Provider />
+       path: '/userlogin',
+        element: <SignUpOne/>,
       },
       {
         path:"",
@@ -63,16 +78,12 @@ const router = createBrowserRouter([
 
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Auth0Provider 
+ <>
+{/* <ServiceProvider>   // context api use 
+   <RouterProvider router={router} />
+</ServiceProvider>
+    */}
+ <RouterProvider router={router} />
+   </> 
 
-    domain="dev-lh11ift7vxqx7iv3.us.auth0.com"
-    clientId="feSXhRUzkbPnW9u5wroDfVww7VzDVUaH"
-    authorizationParams={{
-      redirect_uri: window.location.origin
-    }}
-  >
-   <RouterProvider router={router}/>
-
-    
-  </Auth0Provider>
 )

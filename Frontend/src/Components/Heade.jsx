@@ -1,102 +1,207 @@
-// src/components/Header.js
-//import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import { motion } from 'framer-motion';
-import log from '../assets/logo/log.png';
-import { Dropdown } from 'react-bootstrap';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
+import { Link } from 'react-router-dom';
+import { SignUpOne } from './Login';
+import "../styles/global.css";
 
-import { Link } from "react-router-dom";
+
+const pages = [
+  { name: 'services', path: '/Service' },
+  { name: 'about', path: '/About' },
+  { name: 'contacts', path: '/Contact' }
+];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Header() {
-  const { user ,loginWithRedirect,isAuthenticated,logout } = useAuth0();
-    
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [showSignUp, setShowSignUp] = React.useState(false);
 
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  
+  const handleSignUpClick = () => {
+    setShowSignUp(true);
+  };
+
+  const handleCloseSignUp = () => {
+    setShowSignUp(false);
+  };
 
   return (
-   <div className=  "justify-content: center" style={{backgroundColor:"#7FA1C3"}} >
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <Navbar  expand="lg">
-        <Container className="justify-content: space-around;">
-          <Navbar.Brand to="/home">
-            <motion.div
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
+    <>
+      <AppBar sx={{ backgroundColor: "#6A9C89" }} position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
             >
-              <img
-                src={log}
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-                alt="Logo"
-              />
-            </motion.div>
-          </Navbar.Brand>
+             <Link to = "/home">LOGO</Link> 
+            </Typography>
 
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto fs-6 fw-bold " style={{textAlign:"center",float:"left" }}>
-              
-               <Nav.Link><Link to="/home">Home</Link></Nav.Link>
-               <Nav.Link><Link to="/service">Service</Link></Nav.Link>
-               <Nav.Link> <Link to="/About">About</Link></Nav.Link>
-               <Nav.Link><Link to="/Contact">Contact</Link></Nav.Link>
-  
-            </Nav>
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{ display: { xs: 'block', md: 'none' } }}
+              >
+                {pages.map((page) => (
+                  <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">
+                      <Link to={page.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        {page.name}
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="d-flex "
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="#"
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
             >
-              <div className="navbar-nav">
-                 
-                 { isAuthenticated ? ( 
-                  <Dropdown className="nav-item ">
-                  <Dropdown.Toggle
-                    variant="link"
-                    id="profileDropdown"
-                    className="nav-link dropdown-header p-0"
-                    role="button"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <img src={user.picture} alt="Profile Icon" className="rounded-circle" width="30" />
-                  </Dropdown.Toggle>
-            
-                  <Dropdown.Menu aria-labelledby="profileDropdown">
-                    <Dropdown.Item >{user.name}</Dropdown.Item>
-                    <Dropdown.Item to="#">Bookings</Dropdown.Item>
-                    <Dropdown.Item>
-                      <button 
-                        onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
-                        className="btn btn-link p-0 "
-                        style={{ color: 'inherit', textDecoration: 'none' }}
-                      >
-                        Logout
-                      </button>
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-   ):
-                   (   <button type="button" className=" btn  btn-primary" onClick={() => loginWithRedirect()}>Log In</button>)
-                
-                  }
-                   
-               </div>
-            </motion.div>
-          </Navbar.Collapse>
+              LOGO
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page.name}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  component={Link}
+                  to={page.path}
+                >
+                  {page.name}
+                </Button>
+              ))}
+            </Box>
+          <Button className="text-white" variant="outlined" sx={{ borderColor: 'none' }}> <Link to="/rprovider" >register as service provider</Link></Button>
+            <Box sx={{ flexGrow: 0 }}>
+              {isLoggedIn ?(
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
+                  </IconButton>
+                </Tooltip>
+               ):(
+                <Button
+                  onClick={handleSignUpClick}
+                  sx={{ color: 'white' }}
+                >
+                  Login / Signup
+                </Button>
+              )}
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          </Toolbar>
         </Container>
-      </Navbar>
-    </motion.div>
-    </div>
+      </AppBar>
+
+      {/* Signup Form Popup */}
+      {showSignUp && (
+        
+        <div className="pop fixed  flex items-center justify-cente bg-opacity-50">
+          <div className="relative bg-cyan-50 p-4 rounded-lg">
+            <button onClick={handleCloseSignUp} className="absolute top-2 right-2">X</button>
+            <SignUpOne />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
